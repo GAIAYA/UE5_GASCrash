@@ -1,0 +1,22 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{6A941E44-43C5-69F9-B95A-D0A5CF788B8B}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "CrashCourse",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "ModelingToolsEditorMode",
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
+		}
+	]
+}
