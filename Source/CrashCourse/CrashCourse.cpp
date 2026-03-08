@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Copyright Gaia
 
 #include "CrashCourse.h"
 #include "Modules/ModuleManager.h"
