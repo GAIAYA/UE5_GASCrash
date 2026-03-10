@@ -24,9 +24,12 @@ void ACCEnemyCharacter::BeginPlay()
 
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
 	OnASCInitializad.Broadcast(AbilitySystemComponent, AttributeSet);
-	if (HasAuthority())
-	{
-		GiveStartupAbilities();
-		InitializeAttributes();
-	}
+
+	if (!HasAuthority()) return;
+
+
+	GiveStartupAbilities();
+	InitializeAttributes();
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(UCCAttributeSet::GetHealthAttribute()).AddUObject(this, &ACCEnemyCharacter::OnHealthChanged);
+
 }

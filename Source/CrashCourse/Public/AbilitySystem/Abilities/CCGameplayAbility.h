@@ -7,7 +7,7 @@
 #include "CCGameplayAbility.generated.h"
 
 /**
- * 
+ * 可以认为角色和AI所有的行为都是能力赋予的，能力通过Tag激活:ASC->TryActivateAbilitiesByTag(AbilityTag.GetSingleTagContainer())
  */
 UCLASS()
 class CRASHCOURSE_API UCCGameplayAbility : public UGameplayAbility

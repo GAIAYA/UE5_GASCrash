@@ -75,6 +75,7 @@ protected:
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxMana, Category = "CC|Attributes")
 	FGameplayAttributeData MaxMana;
 
+public:
 	ATTRIBUTE_ACCESSORS(UCCAttributeSet, Health)
 	ATTRIBUTE_ACCESSORS(UCCAttributeSet, Mana)
 	ATTRIBUTE_ACCESSORS(UCCAttributeSet, MaxHealth)

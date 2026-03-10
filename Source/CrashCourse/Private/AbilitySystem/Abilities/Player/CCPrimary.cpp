@@ -5,6 +5,7 @@
 #include "Engine/OverlapResult.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "GameplayTags/CCGameplayTags.h"
+#include "Characters/CCEnemyCharacter.h"
 
 TArray<AActor*> UCCPrimary::HitBoxOverlapText()
 {
@@ -66,6 +67,7 @@ TArray<AActor*> UCCPrimary::HitBoxOverlapText()
 	for (const FOverlapResult& res : outOverlaps)
 	{
 		if (!IsValid(res.GetActor())) continue;
+		if (!Cast<ACCEnemyCharacter>(res.GetActor())) continue;
 
 		outActors.Add(res.GetActor());
 	}
@@ -77,7 +79,7 @@ TArray<AActor*> UCCPrimary::HitBoxOverlapText()
 
 void UCCPrimary::SendHitRectEventToActors(const TArray<AActor*>& actors)
 {
-	// 这里发送给被碰撞Actor一个受击GameplayTag，有这个受击能力的Actor可以做出反应（WaitGameplayEvent）
+	// 这里发送给被碰撞Actor一个受击GameplayTag，受击能力里会监听这个Tag（WaitGameplayEvent）并做出相应的逻辑
 	for (AActor* ac : actors)
 	{
 		if (!IsValid(ac)) continue;

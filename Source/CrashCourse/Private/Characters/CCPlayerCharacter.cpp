@@ -8,6 +8,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "AbilitySystemComponent.h"
 #include "Player/CCPlayerState.h"
+#include "AbilitySystem/CCAttributeSet.h"
 
 ACCPlayerCharacter::ACCPlayerCharacter()
 {
@@ -84,4 +85,6 @@ void ACCPlayerCharacter::SetAbilitySystemComponentInfo()
 	AbilitySystemComponent->InitAbilityActorInfo(playerState, this);
 	AttributeSet = playerState->GetAttributeSet();
 	OnASCInitializad.Broadcast(AbilitySystemComponent, AttributeSet);
+
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(UCCAttributeSet::GetHealthAttribute()).AddUObject(this, &ACCPlayerCharacter::OnHealthChanged);
 }

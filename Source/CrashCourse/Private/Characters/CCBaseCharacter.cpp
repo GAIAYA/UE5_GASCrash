@@ -4,6 +4,8 @@
 #include "Characters/CCBaseCharacter.h"
 #include "AbilitySystemComponent.h"
 #include "UI/Component/CCWidgetComponent.h"
+#include "AbilitySystem/CCAttributeSet.h"
+#include "Net/UnrealNetwork.h"
 
 ACCBaseCharacter::ACCBaseCharacter()
 {
@@ -12,6 +14,45 @@ ACCBaseCharacter::ACCBaseCharacter()
 	* 无论该网格体是否在屏幕上可见，引擎都会始终计算它的动画姿势（Tick Pose）并刷新所有骨骼的变换矩阵
 	*/
 	GetMesh()->VisibilityBasedAnimTickOption = EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
+}
+
+void ACCBaseCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(ACCBaseCharacter, bAlive);
+}
+
+void ACCBaseCharacter::OnHealthChanged(const FOnAttributeChangeData& Data)
+{// 这个回调绑定在Health属性修改上，所以当Health属性被修改时广播，会触发该回调
+	if (Data.NewValue <= 0.f)
+	{
+		Death();
+	}
+}
+
+void ACCBaseCharacter::Death()
+{
+	bAlive = false;
+}
+
+void ACCBaseCharacter::Respawn()
+{
+	bAlive = true; 
+}
+
+void ACCBaseCharacter::OnRep_Alive(bool alive)
+{
+
+}
+
+void ACCBaseCharacter::ResetAttributes()
+{
+	if (!HasAuthority() || !IsValid(ResetAttributesClass)) return;
+
+	FGameplayEffectContextHandle context = AbilitySystemComponent->MakeEffectContext();
+	FGameplayEffectSpecHandle specHandle = AbilitySystemComponent->MakeOutgoingSpec(ResetAttributesClass, 1.f, context);
+	AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*specHandle.Data.Get());
 }
 
 //void ACCBaseCharacter::ActivateStartupAbilities()

@@ -16,6 +16,7 @@ namespace CCTags
 	{
 		// Defines a native gameplay tag with a comment that is externally declared in a header to allow other modules or code to use the created tag variable.
 		UE_DEFINE_GAMEPLAY_TAG_COMMENT(ActivateOnGiven, TEXT("CCTags.Abilities.ActivateOnGiven"), "给予时激活标签")
+		UE_DEFINE_GAMEPLAY_TAG_COMMENT(Death, TEXT("CCTags.Abilities.Death"), "死亡能力标签")
 
 		UE_DEFINE_GAMEPLAY_TAG_COMMENT(Primary, TEXT("CCTags.Abilities.Primary"), "第一能力标签")
 		UE_DEFINE_GAMEPLAY_TAG_COMMENT(Secondary, TEXT("CCTags.Abilities.Secondary"), "第二能力标签")
@@ -30,10 +31,15 @@ namespace CCTags
 		namespace Player
 		{
 			UE_DEFINE_GAMEPLAY_TAG_COMMENT(Primary, TEXT("CCTags.Events.Player.Primary"), "第一能力AnimNofity通知事件标签")
+			UE_DEFINE_GAMEPLAY_TAG_COMMENT(KillScored, TEXT("CCTags.Events.Player.KillScored"), "得分通知事件标签")
 		}
 		namespace Enemy
 		{
 			UE_DEFINE_GAMEPLAY_TAG_COMMENT(HitReact, TEXT("CCTags.Events.Enemy.HitReact"), "敌人受击AnimNofity通知事件标签")
 		}
+	}
+	namespace Status
+	{
+		UE_DEFINE_GAMEPLAY_TAG_COMMENT(Death, TEXT("CCTags.Status.Death"), "死亡状态标签")
 	}
 }
