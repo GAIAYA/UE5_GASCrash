@@ -18,9 +18,9 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FASCInitialized, UAbilitySystemComp
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FInitializeAttributesSet);// 广播初始属性已经初始化的消息
 
 namespace CCActorTags
-{
-
-}
+{// 用于攻击时碰撞检测的Tag
+	extern CRASHCOURSE_API const FName Player;// 模块名_API宏表示外部模块可以使用这个变量
+};
 
 UCLASS(Abstract)
 class CRASHCOURSE_API ACCBaseCharacter : public ACharacter, public IAbilitySystemInterface
@@ -34,6 +34,7 @@ public:
 
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
+	UFUNCTION(BlueprintCallable, Category = "CC|Character")
 	bool IsAlive() const { return bAlive; }
 	void SetAlive(bool live) { bAlive = live; }
 
@@ -46,6 +47,8 @@ public:
 	void OnRep_Alive(bool alive);
 	UFUNCTION(BlueprintCallable, Category = "CC|Character")
 	void ResetAttributes();
+	UFUNCTION(BlueprintImplementableEvent, Category = "CC|Character")
+	void RotateToTarget(AActor* target);
 public:
 	//void ActivateStartupAbilities();
 	UPROPERTY(BlueprintAssignable)
@@ -75,5 +78,5 @@ private:
 	TSubclassOf<UGameplayEffect> ResetAttributesClass;// 使用GameplayEffect重置角色属性
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = "OnRep_Alive", meta = (AllowPrivateAccess = "true"))// 允许蓝图访问私有成员
-	bool bAlive = false;
+	bool bAlive = true;
 };

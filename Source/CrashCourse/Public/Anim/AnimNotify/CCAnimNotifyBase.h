@@ -13,7 +13,7 @@
  */
 UCLASS()
 class CRASHCOURSE_API UCCAnimNotifyBase : public UAnimNotify
-{
+{// 这个是某一帧触发通知，如果想要在某一段攻击动画中通知则使用AnimNotifyState类
 	GENERATED_BODY()
 	
 	

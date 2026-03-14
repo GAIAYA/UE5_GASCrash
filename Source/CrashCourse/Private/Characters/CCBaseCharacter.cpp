@@ -7,6 +7,9 @@
 #include "AbilitySystem/CCAttributeSet.h"
 #include "Net/UnrealNetwork.h"
 
+
+const FName CCActorTags::Player("Player");
+
 ACCBaseCharacter::ACCBaseCharacter()
 {
 	PrimaryActorTick.bCanEverTick = false;
@@ -54,6 +57,7 @@ void ACCBaseCharacter::ResetAttributes()
 	FGameplayEffectSpecHandle specHandle = AbilitySystemComponent->MakeOutgoingSpec(ResetAttributesClass, 1.f, context);
 	AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*specHandle.Data.Get());
 }
+
 
 //void ACCBaseCharacter::ActivateStartupAbilities()
 //{

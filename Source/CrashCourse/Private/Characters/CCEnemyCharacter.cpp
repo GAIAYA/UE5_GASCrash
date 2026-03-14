@@ -4,6 +4,7 @@
 #include "Characters/CCEnemyCharacter.h"
 #include "AbilitySystem/CCAbilitySystemComponent.h"
 #include "AbilitySystem/CCAttributeSet.h"
+#include "AIController.h"
 
 ACCEnemyCharacter::ACCEnemyCharacter()
 {
@@ -16,6 +17,28 @@ ACCEnemyCharacter::ACCEnemyCharacter()
 UAbilitySystemComponent* ACCEnemyCharacter::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
+}
+
+float ACCEnemyCharacter::GetRandomAttackDelay() const
+{
+	return FMath::RandRange(MinAttackDelay, MinAttackDelay);
+}
+
+void ACCEnemyCharacter::Death()
+{
+	Super::Death();
+
+	AAIController* AiController = GetController<AAIController>();
+	if (!IsValid(AiController)) return;
+
+	AiController->StopMovement();
+}
+
+void ACCEnemyCharacter::Respawn()
+{
+	Super::Respawn();
+
+
 }
 
 void ACCEnemyCharacter::BeginPlay()

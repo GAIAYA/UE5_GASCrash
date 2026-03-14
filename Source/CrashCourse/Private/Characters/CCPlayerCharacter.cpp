@@ -55,6 +55,8 @@ ACCPlayerCharacter::ACCPlayerCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
 
+	Tags.Add(CCActorTags::Player);
+
 }
 
 void ACCPlayerCharacter::PossessedBy(AController* NewController)

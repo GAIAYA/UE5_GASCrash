@@ -24,7 +24,7 @@ void UCCAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallback
 	Super::PostGameplayEffectExecute(Data);
 
 	if (Data.EvaluatedData.Attribute == GetHealthAttribute() && GetHealth() <= 0.f)
-	{
+	{// 这里可以发送Character死亡委托，然后在各自的角色/敌人死亡委托里面处理应该发送什么事件（经验/道具/货币等）
 		FGameplayEventData payLoad;
 		payLoad.Instigator = Data.Target.GetAvatarActor();
 		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Data.EffectSpec.GetContext().GetInstigator(), CCTags::Events::Player::KillScored, payLoad);
